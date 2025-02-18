@@ -2,13 +2,16 @@ package com.example.send_book_email_spring_batch.entities;
 
 import com.example.send_book_email_spring_batch.entities.pk.UserBookLoanId;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.Set;
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_user_book_loan")
 @IdClass(UserBookLoanId.class)

@@ -1,14 +1,16 @@
 package com.example.send_book_email_spring_batch.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_user")
 public class User {
     @Id
@@ -23,4 +25,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<UserBookLoan> loans;
+
+    public User(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 }
