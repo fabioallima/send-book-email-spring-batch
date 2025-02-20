@@ -17,13 +17,13 @@ public class ProcessLoanNotificationEmailProcessorConfig {
         return new ItemProcessor<UserBookLoan, Mail>(){
             @Override
             public Mail process(UserBookLoan userBookLoan) throws Exception {
-                Email email = new Email("fabio.almeida.lima@outlook.com", "Biclioteca Municipal");
+                Email email = new Email("fabio.allima@hotmail.com", "Biclioteca Municipal");
                 Email to = new Email(userBookLoan.getUser().getEmail());
                 Content content = new Content("text/plain", generateEmailText(userBookLoan));
                 Mail mail = new Mail(email, "Livro a ser devolvido", to, content);
                 Thread.sleep(1000);
 
-                return null;
+                return mail;
             }
         };
     }
