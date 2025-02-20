@@ -1,6 +1,7 @@
 package com.example.send_book_email_spring_batch.step;
 
 import com.example.send_book_email_spring_batch.entities.UserBookLoan;
+import com.sendgrid.helpers.mail.Mail;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -22,11 +23,13 @@ public class SendEmailUserStepConfig {
 
     @Bean
     public Step sendEmailUserStep(ItemReader<UserBookLoan> readUserWithLoansCloseToReturnReader,
-                                            ItemWriter<UserBookLoan> sendEmailRequestReturnWriter,
+                                            ItemProcessor<UserBookLoan, Mail> processLoanNotificationEmailProcessor,
+                                            ItemWriter<Mail> sendEmailRequestReturnWriter,
                                             JobRepository jobRepository) {
         return new StepBuilder("sendEmailUserStep", jobRepository)
-                .<UserBookLoan, UserBookLoan>chunk(1, transactionManager)
+                .<UserBookLoan, Mail>chunk(1, transactionManager)
                 .reader(readUserWithLoansCloseToReturnReader)
+                .processor(processLoanNotificationEmailProcessor)
                 .writer(sendEmailRequestReturnWriter)
                 .faultTolerant()
                 .build();
