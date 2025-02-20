@@ -31,7 +31,7 @@ public class SendEmailUserStepConfig {
                 .reader(readUserWithLoansCloseToReturnReader)
                 .processor(processLoanNotificationEmailProcessor)
                 .writer(sendEmailRequestReturnWriter)
-                //.faultTolerant()
+                .faultTolerant()
                 .build();
     }
 }
